@@ -55,31 +55,31 @@ var amSynth = new Tone.AMSynth().toMaster();
 
 amSynth.connect(pingPong);
 
-var part = new Tone.Part(function(time, note){
+var partA = new Tone.Part(function(time, note){
     //the notes given as the second element in the array
     //will be passed in as the second argument
     synth.triggerAttackRelease(note, "2n", time);
 }, [["0:0", "C3"],["1:0:1", "C3"], ["2:1:1", "F3"], ["3:0", "C3"], 
 ["4:0", "C3"],["5:0:1", "D3"], ["6:1:1", "Bb2"], ["7:1", "C3"],]);
 
-part.loop = 4;
-part.loopEnd = "8m";
-part.humanize = true;
-
-var partA = new Tone.Part(function(time,note){
-    amSynth.triggerAttackRelease(note,"8n", time);
-}, [["0:2", "C3"],["1:2:", "C3"], ["2:3:1", "F3"], ["3:2", "D4"], 
-["4:2", "C4"],["5:2:1", "F3"], ["6:2:1", "C4"], ["7:2", "G3"],]);
-
 partA.loop = 4;
 partA.loopEnd = "8m";
 partA.humanize = true;
 
+var partB = new Tone.Part(function(time,note){
+    amSynth.triggerAttackRelease(note,"8n", time);
+}, [["0:2", "C3"],["1:2:", "C3"], ["2:3:1", "F3"], ["3:2", "D4"], 
+["4:2", "C4"],["5:2:1", "F3"], ["6:2:1", "C4"], ["7:2", "G3"],]);
+
+partB.loop = 4;
+partB.loopEnd = "8m";
+partB.humanize = true;
+
 //starts stops arpeggiator
 trigger.onmousedown = function mouseDown() {
     Tone.Transport.start(),
-    part.start();
     partA.start();
+    partB.start();
 };
 
 
